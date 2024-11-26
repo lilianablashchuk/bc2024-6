@@ -3,6 +3,8 @@ const { exit } = require('process');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const swaggerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
 
 program
   .option('-h, --host <char>', 'server address')
@@ -22,9 +24,13 @@ if (!fs.existsSync(options.cache)) {
   exit(1);
 }
 
+const file  = fs.readFileSync('./swagger.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
+
 const app = express();
 app.use(express.json());
 app.use(express.text());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/notes/:name', (req, res) => {
   const notePath = path.join(options.cache, `${req.params.name}.txt`);
