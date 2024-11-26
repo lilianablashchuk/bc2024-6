@@ -13,7 +13,7 @@ program.parse();
 const options = program.opts();
 
 if (!options.host || !options.port || !options.cache) {
-  console.error('All options (-h, -p, -c) are required');
+  console.error('All options (-h, -p, -c) are required!');
   exit(1);
 }
 
@@ -29,7 +29,7 @@ app.use(express.text());
 app.get('/notes/:name', (req, res) => {
   const notePath = path.join(options.cache, `${req.params.name}.txt`);
   if (!fs.existsSync(notePath)) {
-    return res.status(404).send('Note not found');
+    return res.status(404).send('Note not found!');
   }
   res.status(200).send(fs.readFileSync(notePath, 'utf8'));
 });
@@ -54,12 +54,11 @@ app.delete('/notes/:name', (req, res) => {
   if (!fs.existsSync(notePath)) {
     return res.status(404).send('Note not found');
   }
-
   try {
     fs.unlinkSync(notePath);
     res.status(200).send('Note deleted successfully!');
   } catch (err) {
-    res.status(500).json({ message: 'Server Error', error: err });
+    res.status(500).json({ message: ' Server Error', error: err });
   }
 });
 
@@ -105,7 +104,7 @@ app.get('/UploadForm.html', (req, res) => {
     const htmlPage = fs.readFileSync('./UploadForm.html', 'utf8');
     res.status(200).contentType('text/html').send(htmlPage);
   } catch (err) {
-    res.status(500).send('Failed to load HTML form');
+    res.status(500).send('Failed to load HTML form!');
   }
 });
 

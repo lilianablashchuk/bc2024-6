@@ -35,4 +35,4 @@ COPY . .
 EXPOSE 8080
 
 # Run the application.
-CMD node index.js --host 0.0.0.0 --port 8080 --cache ./cache
+CMD npx nodemon -L --inspect=0.0.0.0 index.js --host 0.0.0.0 --port 8080 --cache ./cache
