@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Documentation for all server requests
+  description: |-
+    APIs for managing notes
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Notes
+    description: Operations with notes
+  - name: Forms
+    description: HTML forms
+paths:
+  /UploadForm.html:
+    get:
+      tags:
+        - Forms
+      summary: Getting a form
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html:
+              schema:
+                type: string
+  /notes:
+    get:
+      tags:
+        - Notes
+      summary: Getting a list of all notes
+      operationId: getNotes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notes'
+  /write:
+    post:
+      tags:
+        - Notes
+      summary: Create a note
+      requestBody:
+        content: 
+          multipart/form-data: 
+            schema:           
+              type: object
+              properties:      
+                note_name:
+                  type: string
+                note:    
+                  type: string
+      responses:
+        '201':
+          description: Note successfully created!
+        '400':
+          description: Bad request
+  /notes/:name:
+    get:
+      tags:
+        - Notes
+      summary: Get note text
+      parameters:
+        - name: note_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/note'
+        '404':
+          description: Note not found
+    put:
+      tags:
+        - Notes
+      summary: Update note text
+      parameters:
+        - name: note_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/text:
+            schema: 
+              type: string
+      responses:
+        '200':
+          description: Note successfully updated!
+        '404':
+          description: Note not found
+    delete:
+      tags:
+        - Notes
+      summary: Delete a note
+      parameters:
+        - name: note_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Note successfully deleted!
+        '404':
+          description: Note not found
+      
+components:
+  schemas:
+    note:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Note_name"
+        text:
+          type: string
+          example: "This is note"      
+    notes:
+      type: array
+      items:
+        $ref: '#/components/schemas/notes'
+

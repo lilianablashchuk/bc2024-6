@@ -44,7 +44,7 @@ app.put('/notes/:name', (req, res) => {
   const notePath = path.join(options.cache, `${req.params.name}.txt`);
 
   if (!fs.existsSync(notePath)) {
-    return res.status(404).send('Note not found');
+    return res.status(404).send('Note not found!');
   }
 
   fs.writeFile(notePath, req.body, 'utf8', (err) => {
