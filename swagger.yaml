@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Documentation for all server requests
+  title: Documentation for all server requests in bc2024-5
   description: |-
     APIs for managing notes
 servers:
@@ -75,7 +75,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/note'
         '404':
-          description: Note not found
+          description: Note not found...
     put:
       tags:
         - Notes
@@ -95,7 +95,7 @@ paths:
         '200':
           description: Note successfully updated!
         '404':
-          description: Note not found
+          description: Note not found...
     delete:
       tags:
         - Notes
@@ -110,7 +110,7 @@ paths:
         '200':
           description: Note successfully deleted!
         '404':
-          description: Note not found
+          description: Note not found...
       
 components:
   schemas:
@@ -119,10 +119,10 @@ components:
       properties:
         name:
           type: string
-          example: "Note_name"
+          example: "Notatka"
         text:
           type: string
-          example: "This is note"      
+          example: "This is notatka"      
     notes:
       type: array
       items:

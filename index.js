@@ -25,11 +25,13 @@ if (!fs.existsSync(options.cache)) {
 }
 
 const file  = fs.readFileSync('./swagger.yaml', 'utf8')
+
 const swaggerDocument = YAML.parse(file)
 
 const app = express();
 app.use(express.json());
 app.use(express.text());
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/notes/:name', (req, res) => {
